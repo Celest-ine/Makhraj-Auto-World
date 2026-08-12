@@ -1,0 +1,21 @@
+# Local environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Next.js
+node_modules/
+.npm-cache/
+.next/
+out/
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
