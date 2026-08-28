@@ -8,3 +8,4 @@ def test_admin_model_has_required_columns_and_unique_email() -> None:
     assert table.c.email.unique is True
     assert table.c.password_hash.nullable is False
     assert table.c.is_active.default.arg is True
+    assert table.c.is_active.server_default is not None
