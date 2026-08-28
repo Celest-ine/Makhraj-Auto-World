@@ -10,9 +10,9 @@ MVP monorepo for Makhraj Auto World's business website.
 
 The frontend will consume a versioned REST API. Runtime configuration is supplied through environment variables; no real business data or credentials are stored in this repository.
 
-## Current milestone
+## Current progress
 
-The first milestone establishes a safe project foundation and a minimal API health endpoint. Database entities, authentication, and UI are deferred to later milestones.
+The project includes the initial FastAPI foundation, SQLAlchemy database session management, the Admin ORM model, Argon2id password hashing, and an Alembic migration for the `admins` table. Public API resources, login, and dashboard workflows are implemented in later milestones.
 
 ## Run the backend locally
 
@@ -25,8 +25,34 @@ Copy-Item .env.example .env
 uvicorn app.main:app --reload
 ```
 
-Set a real PostgreSQL connection and a long random `SECRET_KEY` in `.env`. The health endpoint is `http://127.0.0.1:8000/api/v1/health`.
+Set a real PostgreSQL connection and a long random `SECRET_KEY` in `.env`.
+
+## Initialize the development database
+
+1. Create a local PostgreSQL database and a dedicated application user with only the permissions needed for this application.
+2. Set `DATABASE_URL` in `backend/.env`, for example:
+
+   ```text
+   DATABASE_URL=postgresql+psycopg://<application-user>:<password>@localhost:5432/makhraj_auto_world
+   ```
+
+3. Apply the reviewed migrations before starting the API:
+
+   ```powershell
+   cd backend
+   alembic upgrade head
+   ```
+
+4. Start the API with `uvicorn app.main:app --reload`.
+
+The health endpoint is `http://127.0.0.1:8000/api/v1/health`.
 
 ## Frontend
 
-The Next.js application will be initialized in the next milestone. Its API base URL is documented in `frontend/.env.example`.
+The Next.js App Router foundation is in `frontend/`. Its API base URL is documented in `frontend/.env.example`.
+
+```powershell
+cd frontend
+npm.cmd install
+npm.cmd run dev
+```
